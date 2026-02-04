@@ -11,8 +11,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #ffe6f0;
+      background: #ffe6f0;
       font-family: Arial, sans-serif;
+      overflow: hidden;
     }
 
     .container {
@@ -22,15 +23,11 @@
       text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       width: 320px;
+      position: relative;
     }
 
     h1 {
       margin-bottom: 25px;
-    }
-
-    .buttons {
-      position: relative;
-      height: 80px;
     }
 
     button {
@@ -42,14 +39,18 @@
     }
 
     #yesBtn {
-      background-color: #ff4d88;
+      background: #ff4d88;
       color: white;
-      margin-right: 15px;
     }
 
     #noBtn {
-      background-color: #cccccc;
+      background: #cccccc;
       position: absolute;
+      left: 180px;
+      top: 140px;
+
+      /* 🔥 MAGIC: smooth floating movement */
+      transition: transform 0.35s ease-in-out;
     }
   </style>
 </head>
@@ -58,11 +59,8 @@
 
   <div class="container" id="card">
     <h1>Will you be my Valentine? 💘</h1>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
-    </div>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
   </div>
 
   <script>
@@ -70,28 +68,42 @@
     const yesBtn = document.getElementById("yesBtn");
     const card = document.getElementById("card");
 
-    // Move NO button
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 200;
-      const y = Math.random() * 60;
+    let x = 0;
+    let y = 0;
 
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+    function moveNoButton() {
+      // random smooth offset
+      x = Math.random() * 220 - 110;
+      y = Math.random() * 140 - 70;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    // 🖱️ Mouse hover
+    noBtn.addEventListener("mouseenter", moveNoButton);
+
+    // 📱 Touch (mobile)
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault(); // stop actual click
+      moveNoButton();
     });
 
     // YES clicked
     yesBtn.addEventListener("click", () => {
       card.innerHTML = `
-        <h1>YAYYY!! 🥰😂</h1>
+        <h1>HAHA YOU DID IT 😜💖</h1>
         <p style="font-size:22px;">
-          You just made my heart go<br><br>
-          💓💓 BOOM BOOM 💓💓<br><br>
-          Now you are officially my Valentine 😍💘
+          The NO button tried its best 🏃‍♂️💨<br><br>
+          But love always wins 🥰💘
         </p>
-        <p style="font-size:30px;">😜💖🤭🎉</p>
+        <p style="font-size:32px;">😂😍🎉💓</p>
       `;
     });
   </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
