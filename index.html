@@ -22,12 +22,20 @@
       border-radius: 15px;
       text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      width: 320px;
+      width: 340px;
       position: relative;
     }
 
     h1 {
       margin-bottom: 25px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      height: 60px;
     }
 
     button {
@@ -45,11 +53,9 @@
 
     #noBtn {
       background: #cccccc;
-      position: absolute;
-      left: 180px;
-      top: 140px;
+      position: relative;
 
-      /* 🔥 MAGIC: smooth floating movement */
+      /* smooth floating */
       transition: transform 0.35s ease-in-out;
     }
   </style>
@@ -59,8 +65,11 @@
 
   <div class="container" id="card">
     <h1>Will you be my Valentine? 💘</h1>
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
+
+    <div class="button-row">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
   </div>
 
   <script>
@@ -72,31 +81,29 @@
     let y = 0;
 
     function moveNoButton() {
-      // random smooth offset
-      x = Math.random() * 220 - 110;
-      y = Math.random() * 140 - 70;
-
+      x = Math.random() * 200 - 100;
+      y = Math.random() * 120 - 60;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
     }
 
-    // 🖱️ Mouse hover
+    // mouse
     noBtn.addEventListener("mouseenter", moveNoButton);
 
-    // 📱 Touch (mobile)
+    // mobile
     noBtn.addEventListener("touchstart", (e) => {
-      e.preventDefault(); // stop actual click
+      e.preventDefault();
       moveNoButton();
     });
 
-    // YES clicked
+    // yes click
     yesBtn.addEventListener("click", () => {
       card.innerHTML = `
-        <h1>HAHA YOU DID IT 😜💖</h1>
+        <h1>YESSS 😍🎉</h1>
         <p style="font-size:22px;">
-          The NO button tried its best 🏃‍♂️💨<br><br>
-          But love always wins 🥰💘
+          The NO button ran away 🏃‍♂️💨<br><br>
+          But you caught the YES 🥰💘
         </p>
-        <p style="font-size:32px;">😂😍🎉💓</p>
+        <p style="font-size:32px;">😂💖🤭</p>
       `;
     });
   </script>
@@ -104,7 +111,4 @@
 </body>
 </html>
 
-
-</body>
-</html>
 
