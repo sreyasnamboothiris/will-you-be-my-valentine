@@ -3,75 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <title>Valentine 💖</title>
+
   <style>
     body {
       height: 100vh;
+      margin: 0;
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: #ffe6f0;
+      align-items: center;
+      background-color: #ffe6f0;
       font-family: Arial, sans-serif;
     }
 
-    .box {
-      text-align: center;
+    .container {
       background: white;
       padding: 40px;
       border-radius: 15px;
+      text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 320px;
     }
 
     h1 {
-      margin-bottom: 30px;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 80px;
     }
 
     button {
-      padding: 12px 25px;
+      padding: 10px 22px;
       font-size: 18px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
     }
 
-    #yes {
-      background: #ff4d88;
+    #yesBtn {
+      background-color: #ff4d88;
       color: white;
-      margin-right: 20px;
+      margin-right: 15px;
     }
 
-    #no {
-      background: #ccc;
+    #noBtn {
+      background-color: #cccccc;
       position: absolute;
     }
   </style>
 </head>
+
 <body>
 
-  <div class="box">
+  <div class="container" id="card">
     <h1>Will you be my Valentine? 💘</h1>
-    <button id="yes" onclick="yesClicked()">Yes</button>
-    <button id="no">No</button>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
   </div>
 
   <script>
-    const noBtn = document.getElementById("no");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const card = document.getElementById("card");
 
+    // Move NO button
     noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 50);
+      const x = Math.random() * 200;
+      const y = Math.random() * 60;
 
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
     });
 
-    function yesClicked() {
-      document.body.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#ffe6f0;">
-          <h1>Yay! 💖 I knew it 😍</h1>
-        </div>
+    // YES clicked
+    yesBtn.addEventListener("click", () => {
+      card.innerHTML = `
+        <h1>YAYYY!! 🥰😂</h1>
+        <p style="font-size:22px;">
+          You just made my heart go<br><br>
+          💓💓 BOOM BOOM 💓💓<br><br>
+          Now you are officially my Valentine 😍💘
+        </p>
+        <p style="font-size:30px;">😜💖🤭🎉</p>
       `;
-    }
+    });
   </script>
 
 </body>
 </html>
+
