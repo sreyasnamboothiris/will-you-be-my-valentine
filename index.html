@@ -22,7 +22,7 @@
       border-radius: 15px;
       text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      width: 340px;
+      width: 360px;
       position: relative;
     }
 
@@ -31,11 +31,8 @@
     }
 
     .button-row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
       position: relative;
-      height: 60px;
+      height: 70px;
     }
 
     button {
@@ -49,13 +46,16 @@
     #yesBtn {
       background: #ff4d88;
       color: white;
+      position: absolute;
+      left: 80px;
+      top: 10px;
     }
 
     #noBtn {
       background: #cccccc;
-      position: relative;
-
-      /* smooth floating */
+      position: absolute;
+      left: 200px;
+      top: 10px;
       transition: transform 0.35s ease-in-out;
     }
   </style>
@@ -77,33 +77,57 @@
     const yesBtn = document.getElementById("yesBtn");
     const card = document.getElementById("card");
 
-    let x = 0;
-    let y = 0;
+    const MIN_GAP = 2;
 
-    function moveNoButton() {
-      x = Math.random() * 200 - 100;
-      y = Math.random() * 120 - 60;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    function isOverlapping(rect1, rect2) {
+      return !(
+        rect1.right + MIN_GAP < rect2.left ||
+        rect1.left > rect2.right + MIN_GAP ||
+        rect1.bottom + MIN_GAP < rect2.top ||
+        rect1.top > rect2.bottom + MIN_GAP
+      );
     }
 
-    // mouse
+    function moveNoButton() {
+      const cardRect = card.getBoundingClientRect();
+      const yesRect = yesBtn.getBoundingClientRect();
+      const noRect = noBtn.getBoundingClientRect();
+
+      let attempts = 0;
+
+      while (attempts < 20) {
+        const x = Math.random() * 200 - 100;
+        const y = Math.random() * 120 - 60;
+
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+        const newNoRect = noBtn.getBoundingClientRect();
+
+        if (!isOverlapping(newNoRect, yesRect)) {
+          break;
+        }
+        attempts++;
+      }
+    }
+
+    // Mouse hover
     noBtn.addEventListener("mouseenter", moveNoButton);
 
-    // mobile
+    // Mobile touch
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
       moveNoButton();
     });
 
-    // yes click
+    // YES clicked
     yesBtn.addEventListener("click", () => {
       card.innerHTML = `
         <h1>YESSS 😍🎉</h1>
         <p style="font-size:22px;">
-          The NO button ran away 🏃‍♂️💨<br><br>
-          But you caught the YES 🥰💘
+          The NO button kept running 🏃‍♂️💨<br><br>
+          But love wins every time 💖
         </p>
-        <p style="font-size:32px;">😂💖🤭</p>
+        <p style="font-size:32px;">😂💘🥰</p>
       `;
     });
   </script>
